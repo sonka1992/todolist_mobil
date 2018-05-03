@@ -2,6 +2,7 @@ package hu.somaszigeti.mytodolist.screens.todolist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -52,8 +53,18 @@ public class TodoListActivity extends AppCompatActivity implements TodoListContr
         startActivity(intent);
     }
 
+    @OnClick(R.id.todo_list_delete_todo)
+    public void onTodoDeletedClicked(){
+        todoListPresenter.deleteTodo(0);
+    }
+
     @Override
     public void showTodoList() {
 
+    }
+
+    @Override
+    public void todoSuccessfullyDeleted() {
+        Snackbar.make(findViewById(R.id.todo_list_delete_todo), "Todo deleted", Snackbar.LENGTH_LONG).show();
     }
 }

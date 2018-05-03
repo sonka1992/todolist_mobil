@@ -6,9 +6,13 @@ public interface TodoListContract {
 
     interface TodoListScreen extends Screen {
         void showTodoList();
+
+        void todoSuccessfullyDeleted();
     }
 
     interface Presenter {
         void fetchTodoList();
+
+        void deleteTodo(int todoId);
     }
 }

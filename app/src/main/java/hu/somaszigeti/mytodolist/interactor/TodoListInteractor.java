@@ -15,4 +15,8 @@ public class TodoListInteractor {
     public void fetchTodos(){
 
     }
+
+    public void deleteTodo(int todoId){
+
+    }
 }

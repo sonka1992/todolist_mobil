@@ -24,6 +24,18 @@ public class TodoListPresenter extends Presenter<TodoListContract.TodoListScreen
         displayTodoList();
     }
 
+    @Override
+    public void deleteTodo(int todoId) {
+        todoListInteractor.deleteTodo(todoId);
+
+
+        todoDeleted();
+    }
+
+    private void todoDeleted(){
+        screen.todoSuccessfullyDeleted();
+    }
+
     private void displayTodoList() {
         screen.showTodoList();
     }
