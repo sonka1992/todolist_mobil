@@ -1,16 +1,17 @@
 package hu.somaszigeti.mytodolist.screens.todolist;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hu.somaszigeti.mytodolist.MyTodoListApplication;
 import hu.somaszigeti.mytodolist.R;
+import hu.somaszigeti.mytodolist.screens.newtodo.CreateTodoActivity;
 
 public class TodoListActivity extends AppCompatActivity implements TodoListContract.TodoListScreen {
 
@@ -22,19 +23,11 @@ public class TodoListActivity extends AppCompatActivity implements TodoListContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_list);
 
+        ButterKnife.bind(this);
         MyTodoListApplication.component.inject(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
@@ -50,6 +43,13 @@ public class TodoListActivity extends AppCompatActivity implements TodoListContr
         todoListPresenter.detach();
 
         super.onStop();
+    }
+
+    @OnClick(R.id.fab)
+    public void onAddNewTodoClicked() {
+        Intent intent = new Intent(this, CreateTodoActivity.class);
+
+        startActivity(intent);
     }
 
     @Override
