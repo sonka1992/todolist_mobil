@@ -1,8 +1,11 @@
 package hu.somaszigeti.mytodolist;
 
-import android.app.Application;
+import com.orm.SugarApp;
 
-public class MyTodoListApplication extends Application {
+import hu.somaszigeti.mytodolist.di.DaggerMyTodoListComponent;
+import hu.somaszigeti.mytodolist.di.MyTodoListComponent;
+
+public class MyTodoListApplication extends SugarApp {
 
     public static MyTodoListComponent component;
 

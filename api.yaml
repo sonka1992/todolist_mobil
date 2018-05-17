@@ -1,0 +1,163 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Todo Application"
+    },
+    "basePath": "/api",
+    "consumes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "application/xml",
+        "text/xml"
+    ],
+    "produces": [
+        "application/json",
+        "application/xml",
+        "text/xml",
+        "application/javascript",
+        "text/javascript"
+    ],
+    "paths": {
+        "todo/delete": {
+            "delete": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "Delete a model instance by id from the data source.",
+                "operationId": "deleteTodo",
+                "parameters": [
+                    {
+                        "name": "todoId",
+                        "in": "body",
+                        "description": "Model id",
+                        "required": true,
+                        "type": "number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request was successful",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "deprecated": false
+            },
+        "todo/list": {
+            "get": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "Return instances of the model.",
+                "operationId": "getTodos",
+                "responses": {
+                    "200": {
+                        "description": "Request was successful",
+                        "schema": {
+			            "$ref": "#/definitions/TodoResult"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "todo/add": {
+            "post": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "Create Todo",
+                "operationId": "addTodo",
+                "parameters": [
+                    {
+                        "name": "todo",
+                        "in": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+		            "$ref": "#/definitions/Todo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request was successful",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "todo/statechange/{id}": {
+            "put": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "Update attributes for a model instance and persist it into the data source.",
+                "operationId": "changeTodoState",
+                "parameters": [
+                    {
+                        "name": "todoId",
+                        "in": "path",
+                        "description": "PersistedModel id",
+                        "required": true,
+                        "type": "number",
+                        "format": "JSON"
+                    },
+                    {
+                        "name": "newState",
+                        "in": "query",
+                        "description": "User access token",
+                        "required": true,
+                        "type": "boolean",
+                        "format": "JSON"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request was successful",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        }
+    },
+    "definitions": {
+        "TodoResult": {
+            "properties": {
+        	"todos": 
+		 { "$ref": "#/definitions/Todo" }
+            }
+        },
+        "Todo": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string",
+		    "format": "date-time"
+                },
+                "isDone": {
+                    "type": "boolean"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Todo"
+        }
+    ]
+  }
+}

@@ -6,18 +6,21 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hu.somaszigeti.mytodolist.MyTodoListApplication;
 import hu.somaszigeti.mytodolist.R;
+import hu.somaszigeti.mytodolist.model.Todo;
 import hu.somaszigeti.mytodolist.screens.newtodo.CreateTodoActivity;
 
 public class TodoListActivity extends AppCompatActivity implements TodoListContract.TodoListScreen {
 
     @Inject
-    TodoListPresenter todoListPresenter;
+    TodoListContract.Presenter todoListPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoListContr
         super.onStart();
 
         todoListPresenter.attach(this);
-        todoListPresenter.fetchTodoList();
+//        todoListPresenter.fetchTodoList();
     }
 
     @Override
@@ -54,17 +57,22 @@ public class TodoListActivity extends AppCompatActivity implements TodoListContr
     }
 
     @OnClick(R.id.todo_list_delete_todo)
-    public void onTodoDeletedClicked(){
-        todoListPresenter.deleteTodo(0);
+    public void onTodoDeletedClicked() {
+        //todoListPresenter.deleteTodo(0);
     }
 
     @Override
-    public void showTodoList() {
+    public void showTodoList(List<Todo> todoList) {
 
     }
 
     @Override
     public void todoSuccessfullyDeleted() {
         Snackbar.make(findViewById(R.id.todo_list_delete_todo), "Todo deleted", Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void displayTodoNewState() {
+
     }
 }

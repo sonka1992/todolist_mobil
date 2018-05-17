@@ -9,11 +9,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hu.somaszigeti.mytodolist.MyTodoListApplication;
 import hu.somaszigeti.mytodolist.R;
+import hu.somaszigeti.mytodolist.model.Todo;
 
 public class CreateTodoActivity extends AppCompatActivity implements CreateTodoContract.CreateTodoScreen {
 
     @Inject
-    CreateTodoPresenter createTodoPresenter;
+    CreateTodoContract.Presenter createTodoPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class CreateTodoActivity extends AppCompatActivity implements CreateTodoC
 
     @OnClick(R.id.create_todo_add)
     public void onAddTodoClicked(){
-        createTodoPresenter.addTodo();
+        //createTodoPresenter.addTodo(new Todo());
     }
 
     @Override

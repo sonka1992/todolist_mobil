@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hu.somaszigeti.mytodolist">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyTodoListApplication"
         android:allowBackup="true"
@@ -20,7 +22,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screens.newtodo.CreateTodoActivity"></activity>
+        <activity android:name=".screens.newtodo.CreateTodoActivity" />
+
+        <meta-data
+            android:name="DATABASE"
+            android:value="todo.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="hu.somaszigeti.mytodolist" />
     </application>
 
 </manifest>

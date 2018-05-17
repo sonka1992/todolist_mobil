@@ -1,42 +1,91 @@
 package hu.somaszigeti.mytodolist.screens.todolist;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
-import hu.somaszigeti.mytodolist.interactor.TodoListInteractor;
-import hu.somaszigeti.mytodolist.screens.Presenter;
+import hu.somaszigeti.mytodolist.model.Todo;
+import hu.somaszigeti.mytodolist.network.interactor.TodoListInteractor;
+import io.reactivex.Flowable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
-public class TodoListPresenter extends Presenter<TodoListContract.TodoListScreen>
-        implements TodoListContract.Presenter {
+public class TodoListPresenter implements TodoListContract.Presenter {
 
     private final TodoListInteractor todoListInteractor;
+    private final CompositeDisposable compositeDisposable;
+    private final Scheduler ioScheduler;
+
+    private TodoListContract.TodoListScreen screen;
 
     @Inject
-    public TodoListPresenter(TodoListInteractor todoListInteractor) {
+    public TodoListPresenter(TodoListInteractor todoListInteractor, Scheduler ioScheduler) {
         this.todoListInteractor = todoListInteractor;
+        this.ioScheduler = ioScheduler;
+        this.compositeDisposable = new CompositeDisposable();
     }
 
     @Override
     public void fetchTodoList() {
-        todoListInteractor.fetchTodos();
+        final Disposable disposable = Flowable.fromCallable(todoListInteractor::fetchTodos)
+                .subscribeOn(ioScheduler)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displayTodoList);
 
-        //later start a new thread for network call
-
-        displayTodoList();
+        compositeDisposable.add(disposable);
     }
 
     @Override
     public void deleteTodo(int todoId) {
-        todoListInteractor.deleteTodo(todoId);
+        final Disposable disposable = Flowable.fromCallable(() -> todoListInteractor.deleteTodo(todoId))
+                .subscribeOn(ioScheduler)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displayTodoDeleted);
 
-
-        todoDeleted();
+        compositeDisposable.add(disposable);
     }
 
-    private void todoDeleted(){
-        screen.todoSuccessfullyDeleted();
+    @Override
+    public void makeTodoDone(int todoId, boolean newTodoState) {
+        final Disposable disposable = Flowable.fromCallable(() -> todoListInteractor.changeTodoState(todoId, newTodoState))
+                .subscribeOn(ioScheduler)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displayTodoState);
+
+        compositeDisposable.add(disposable);
     }
 
-    private void displayTodoList() {
-        screen.showTodoList();
+    @Override
+    public void attach(TodoListContract.TodoListScreen screen) {
+        this.screen = screen;
     }
+
+    @Override
+    public void detach() {
+        this.compositeDisposable.clear();
+
+        this.screen = null;
+    }
+
+    private void displayTodoDeleted(boolean todoDeletionResult) {
+        if (screen != null) {
+            screen.todoSuccessfullyDeleted();
+        }
+    }
+
+    private void displayTodoState(boolean stateChangeResult) {
+        if (screen != null) {
+            screen.displayTodoNewState();
+        }
+    }
+
+    private void displayTodoList(List<Todo> todos) {
+        if (screen != null) {
+            screen.showTodoList(todos);
+        }
+    }
+
+
 }

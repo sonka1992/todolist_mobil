@@ -1,4 +1,4 @@
-package hu.somaszigeti.mytodolist;
+package hu.somaszigeti.mytodolist.di.module;
 
 import android.content.Context;
 

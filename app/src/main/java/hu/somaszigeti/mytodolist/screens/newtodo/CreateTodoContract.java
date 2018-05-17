@@ -1,5 +1,7 @@
 package hu.somaszigeti.mytodolist.screens.newtodo;
 
+import hu.somaszigeti.mytodolist.model.Todo;
+import hu.somaszigeti.mytodolist.screens.BasePresenter;
 import hu.somaszigeti.mytodolist.screens.Screen;
 
 public interface CreateTodoContract {
@@ -8,7 +10,7 @@ public interface CreateTodoContract {
         void todoSuccessfullyAdded();
     }
 
-    interface Presenter {
-        void addTodo();
+    interface Presenter extends BasePresenter<CreateTodoScreen> {
+        void addTodo(Todo todo);
     }
 }
