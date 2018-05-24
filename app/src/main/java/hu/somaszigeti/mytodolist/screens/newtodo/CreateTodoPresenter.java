@@ -2,8 +2,8 @@ package hu.somaszigeti.mytodolist.screens.newtodo;
 
 import javax.inject.Inject;
 
-import hu.somaszigeti.mytodolist.network.interactor.CreateTodoInteractor;
 import hu.somaszigeti.mytodolist.model.Todo;
+import hu.somaszigeti.mytodolist.network.interactor.CreateTodoInteractor;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -34,7 +34,9 @@ public class CreateTodoPresenter implements CreateTodoContract.Presenter {
     }
 
     private void todoSuccessfullyAdded(Integer newTodoId) {
-        screen.todoSuccessfullyAdded();
+        if (screen != null) {
+            screen.todoSuccessfullyAdded();
+        }
     }
 
     @Override

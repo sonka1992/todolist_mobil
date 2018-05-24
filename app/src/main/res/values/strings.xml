@@ -3,4 +3,12 @@
     <string name="action_settings">Settings</string>
     <string name="create_new_todo_add_label">Add new todo</string>
     <string name="todo_list_delete_todo_label">Delete Todo</string>
+    <string name="create_todo_name_label">Name</string>
+    <string name="create_todo_name_hint">Name</string>
+    <string name="create_todo_description_label">Description</string>
+    <string name="create_todo_description_hint">Description</string>
+    <string name="create_todo_create_label">Create</string>
+    <string name="create_todo_empty_field_warning_message">One of the field is empty! Fill it please!</string>
+    <string name="todo_list_empty_screen_message">Oppss... You don\'t have any goal yet :(</string>
+    <string name="todo_list_successfull_deletion_message">Todo deleted</string>
 </resources>

@@ -4,8 +4,7 @@ import com.orm.SugarRecord;
 
 import java.util.Date;
 
-public class Todo extends SugarRecord{
-
+public class Todo extends SugarRecord {
 
     private String name;
     private String description;

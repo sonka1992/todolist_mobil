@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:orientation="horizontal">
+
+    <CheckBox
+        android:id="@+id/list_item_todo_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp" />
+
+    <LinearLayout
+        android:id="@+id/list_item_information_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@+id/list_item_todo_done"
+        android:layout_toStartOf="@+id/list_item_todo_delete"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/list_item_todo_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Wc guriga vasarlas" />
+
+        <TextView
+            android:id="@+id/list_item_todo_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="A wc guriga minden haztartas fontos kelleke!" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/list_item_todo_delete"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:padding="8dp"
+        android:src="@drawable/baseline_delete_outline_black_24" />
+</RelativeLayout>
